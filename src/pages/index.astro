@@ -50,21 +50,23 @@ const principles = [
       <p class="lede">
         Between over-engineering and moving fast and breaking things, there is a saner route. We
         rescue tangled codebases, build new products with discipline, and help businesses make
-        sound technical decisions.  Backed by twenty years of full-stack craft.
+        sound technical decisions. Backed by twenty years of full-stack craft.
       </p>
       <div class="hero-actions">
         <ContactToggle label="Contact us" variant="solid" />
         <a href="/projects" class="button button-quiet">See the work we take on</a>
       </div>
     </div>
-    <div class="hero-art wrap">
-      <Image
-        src={logo}
-        alt="The Middle Path Development mark: a river winding between two green hillsides"
-        width={973}
-        densities={[1, 2]}
-        loading="eager"
-      />
+    <div class="wrap">
+      <div class="hero-art">
+        <Image
+          src={logo}
+          alt="The Middle Path Development mark: a river winding between two green hillsides"
+          width={973}
+          densities={[1, 2]}
+          loading="eager"
+        />
+      </div>
     </div>
   </section>
 
@@ -124,11 +126,20 @@ const principles = [
     padding-top: clamp(3rem, 7vw, 5.5rem);
   }
 
+  /* The headline is sized to run the full width of the container, so the hero
+     reads as one block instead of a narrow column with dead space beside it. */
   .hero h1 {
-    font-size: clamp(2.5rem, 6vw, 4.25rem);
+    font-size: clamp(2.5rem, 5.4vw, 3.375rem);
     font-weight: 700;
-    max-width: 16ch;
+    max-width: none;
     margin-block: 0.75rem 1.25rem;
+    /* `pretty` over the global `balance`: when it does wrap, fill the first line
+       rather than splitting into two short, off-centre ones. */
+    text-wrap: pretty;
+  }
+
+  .hero .lede {
+    max-width: 58ch;
   }
 
   .hero-actions {
@@ -139,13 +150,15 @@ const principles = [
     margin-top: 2rem;
   }
 
+  /* Left edge flush with the heading and lede above it. */
   .hero-art {
+    max-width: 48rem;
     margin-top: clamp(2rem, 5vw, 3.5rem);
+    margin-inline: 0;
   }
 
-  .hero-art img {
-    width: min(100%, 44rem);
-    margin-inline: auto;
+  .hero-art :global(img) {
+    width: 100%;
   }
 
   .offering-grid {
