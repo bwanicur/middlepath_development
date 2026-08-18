@@ -1,0 +1,176 @@
+---
+interface Props {
+  /** Label shown before the address is revealed. */
+  label: string;
+  variant?: 'nav' | 'solid' | 'invert' | 'inline';
+}
+
+const { label, variant = 'inline' } = Astro.props;
+const panelId = `contact-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<span class:list={['contact', `contact-${variant}`]}>
+  <button
+    type="button"
+    class:list={[
+      'contact-toggle',
+      (variant === 'solid' || variant === 'invert') && 'button button-solid',
+      variant === 'invert' && 'button-invert',
+    ]}
+    aria-expanded="false"
+    aria-controls={panelId}
+    data-contact-toggle
+    data-label-show={label}
+    data-label-hide="Hide email"
+  >
+    {label}
+  </button>
+  <span class="contact-address" id={panelId} data-contact-address hidden></span>
+</span>
+
+<style>
+  .contact-toggle {
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .contact-address {
+    font-family: var(--font-mono);
+    font-size: 0.9375rem;
+    color: var(--ink);
+    user-select: all;
+  }
+
+  /* --- nav: reveals in a small panel under the header --- */
+
+  .contact-nav {
+    position: relative;
+    display: inline-flex;
+  }
+
+  .contact-nav .contact-toggle {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--ink);
+    background: none;
+    border: 0;
+    border-bottom: 2px dotted var(--hairline);
+    padding: 0 0 0.125rem;
+  }
+
+  .contact-nav .contact-toggle:hover {
+    color: var(--river);
+    border-bottom-color: var(--river);
+  }
+
+  .contact-nav .contact-toggle[aria-expanded='true'] {
+    color: var(--pine);
+    border-bottom: 2px solid var(--meadow);
+  }
+
+  .contact-nav .contact-address {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    right: 0;
+    z-index: 20;
+    white-space: nowrap;
+    background: var(--card);
+    border: 1px solid var(--hairline);
+    border-left: 4px solid var(--meadow);
+    border-radius: 8px;
+    padding: 0.5rem 0.875rem;
+    box-shadow: 0 8px 24px rgba(24, 39, 32, 0.14);
+  }
+
+  /* --- button variants: reveal below the button --- */
+
+  .contact-solid,
+  .contact-invert {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.875rem;
+  }
+
+  .contact-solid .contact-address,
+  .contact-invert .contact-address {
+    border-left: 3px solid var(--meadow);
+    padding-left: 0.75rem;
+  }
+
+  .contact-invert .contact-address {
+    color: var(--fog);
+  }
+
+  /* --- inline: sits inside a sentence --- */
+
+  .contact-inline .contact-toggle {
+    color: var(--river);
+    background: none;
+    border: 0;
+    padding: 0;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 3px;
+  }
+
+  .contact-inline .contact-toggle:hover {
+    color: var(--pine);
+  }
+
+  .contact-inline .contact-address {
+    margin-left: 0.375rem;
+    border-left: 3px solid var(--meadow);
+    padding-left: 0.5rem;
+  }
+
+  .contact-address:not([hidden]) {
+    animation: contact-reveal 200ms ease-out;
+  }
+
+  @keyframes contact-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(-2px);
+    }
+  }
+</style>
+
+<script>
+  // The address is assembled in the browser from reversed parts, so no readable
+  // token — and nothing matching an email pattern — ships in the static HTML.
+  const unscramble = (part: string) => [...part].reverse().join('');
+  const address = ['rucinawb', 'moc.liamg'].map(unscramble).join('@');
+
+  const toggles = document.querySelectorAll<HTMLButtonElement>('[data-contact-toggle]');
+
+  const close = (button: HTMLButtonElement) => {
+    const panel = document.getElementById(button.getAttribute('aria-controls') ?? '');
+    button.setAttribute('aria-expanded', 'false');
+    button.textContent = button.dataset.labelShow ?? button.textContent;
+    if (panel) panel.hidden = true;
+  };
+
+  toggles.forEach((button) => {
+    const panel = document.getElementById(button.getAttribute('aria-controls') ?? '');
+    if (!panel) return;
+
+    button.addEventListener('click', () => {
+      if (button.getAttribute('aria-expanded') === 'true') {
+        close(button);
+        return;
+      }
+      panel.textContent = address;
+      panel.hidden = false;
+      button.setAttribute('aria-expanded', 'true');
+      button.textContent = button.dataset.labelHide ?? 'Hide email';
+    });
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    toggles.forEach((button) => {
+      if (button.getAttribute('aria-expanded') === 'true') close(button);
+    });
+  });
+</script>

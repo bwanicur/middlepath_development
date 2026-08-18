@@ -1,0 +1,191 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import PathDivider from '../components/PathDivider.astro';
+import ContactToggle from '../components/ContactToggle.astro';
+import logo from '../assets/middlepath-logo.png';
+
+const offerings = [
+  {
+    blaze: 'blaze-river',
+    title: 'Project Rescue',
+    text: 'Difficult bugs, tangled codebases, aging stacks. We find the path back to a healthy application.',
+  },
+  {
+    blaze: 'blaze-meadow',
+    title: 'Greenfield Builds',
+    text: 'New products, built end to end — with the technical decisions explained in plain language along the way.',
+  },
+  {
+    blaze: 'blaze-pine',
+    title: 'Consultancy',
+    text: 'Honest feedback on your plans, your architecture, and your code, from engineers with no stake in the answer.',
+  },
+];
+
+const principles = [
+  {
+    title: 'AI in its place',
+    text: 'We use AI tooling to write code efficiently — but we do not rely on AI to write the code itself. No vibe coding: every line is understood, reviewed, and owned by an engineer.',
+  },
+  {
+    title: 'Small, visible steps',
+    text: 'Work is organized around project goals and shipped in small increments, so you can see progress instead of taking our word for it.',
+  },
+  {
+    title: 'Plain-spoken guidance',
+    text: 'Technical decisions explained in business terms, with real trade-offs — not jargon, and not whatever is trending this quarter.',
+  },
+];
+---
+
+<Layout
+  title="Middle Path Development — Software Consultancy"
+  description="A software consultancy in San Diego. We rescue tangled codebases, build new products end to end, and give businesses honest technical guidance — twenty years of full-stack craft, without the extremes."
+>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Software consultancy · San Diego, California</p>
+      <h1>Software that takes the middle&nbsp;path.</h1>
+      <p class="lede">
+        Between over-engineering and moving fast and breaking things, there is a saner route. We
+        rescue tangled codebases, build new products with discipline, and help businesses make
+        sound technical decisions — backed by twenty years of full-stack craft.
+      </p>
+      <div class="hero-actions">
+        <ContactToggle label="Contact us" variant="solid" />
+        <a href="/projects" class="button button-quiet">See the work we take on</a>
+      </div>
+    </div>
+    <div class="hero-art wrap">
+      <Image
+        src={logo}
+        alt="The Middle Path Development mark: a river winding between two green hillsides"
+        width={973}
+        densities={[1, 2]}
+        loading="eager"
+      />
+    </div>
+  </section>
+
+  <PathDivider />
+
+  <section class="section" aria-labelledby="what-we-do">
+    <div class="wrap">
+      <p class="eyebrow">What we do</p>
+      <div class="offering-grid">
+        {
+          offerings.map((item) => (
+            <article class="offering">
+              <span class={`blaze ${item.blaze}`} aria-hidden="true" />
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p><a href="/projects">More about the projects we take on →</a></p>
+    </div>
+  </section>
+
+  <PathDivider />
+
+  <section class="section" aria-labelledby="how-we-work">
+    <div class="wrap">
+      <p class="eyebrow">How we work</p>
+      <h2 id="how-we-work">Boring on purpose, in the ways that matter.</h2>
+      <div class="principle-grid">
+        {
+          principles.map((item) => (
+            <article class="card">
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="wrap">
+      <h2>Tell us where the trail got rough.</h2>
+      <p>
+        A short email about your project is enough. We will tell you honestly whether we are the
+        right fit — and point you in a better direction if we are not.
+      </p>
+      <ContactToggle label="Contact us" variant="invert" />
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .hero {
+    padding-top: clamp(3rem, 7vw, 5.5rem);
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4.25rem);
+    font-weight: 700;
+    max-width: 16ch;
+    margin-block: 0.75rem 1.25rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 0.875rem;
+    margin-top: 2rem;
+  }
+
+  .hero-art {
+    margin-top: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .hero-art img {
+    width: min(100%, 44rem);
+    margin-inline: auto;
+  }
+
+  .offering-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    margin-block: 2rem;
+  }
+
+  .offering h3 {
+    margin-block: 0.625rem 0.375rem;
+    font-size: 1.375rem;
+  }
+
+  .principle-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  .principle-grid h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.375rem;
+  }
+
+  .cta-band {
+    background: var(--pine);
+    color: var(--fog);
+    padding-block: clamp(3rem, 6vw, 4.5rem);
+  }
+
+  .cta-band h2 {
+    color: var(--fog);
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  }
+
+  .cta-band p {
+    color: var(--meadow-soft);
+    margin-block: 0.875rem 1.75rem;
+  }
+
+</style>

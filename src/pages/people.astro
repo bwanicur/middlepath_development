@@ -1,0 +1,75 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const stack = [
+  'Ruby / Rails',
+  'Hotwire',
+  'React & Vue',
+  'TypeScript',
+  'PostgreSQL & MySQL',
+  'Node.js',
+  'Elixir / Phoenix',
+  'AWS & Heroku',
+  'TDD (RSpec, Jest)',
+  'Agentic AI development',
+];
+---
+
+<Layout
+  title="People — Middle Path Development"
+  description="Middle Path Development is led by Ben Wanicur, a full-stack engineer with twenty years of experience building and rescuing web applications."
+>
+  <section class="section founder">
+    <div class="wrap">
+      <article class="card founder-card">
+        <p class="eyebrow">Founder &amp; principal engineer</p>
+        <h1>Ben Wanicur</h1>
+        <p class="founder-bio">
+          Ben has spent nearly twenty years building and rescuing web applications — on staff at
+          companies like Weedmaps, Sophos, and Coupa, and independently through Middle Path
+          Development since 2014. The through-line across both: leading features from concept to
+          market, untangling complex codebases, guiding sound business decisions about technology,
+          and mentoring engineers along the way.
+        </p>
+        <p class="founder-bio">
+          The craft stays current — most recently agentic AI–assisted development, where Ben was an
+          early adopter of using AI tooling to ship faster without surrendering engineering
+          judgment.
+        </p>
+        <ul class="stack-tags">
+          {stack.map((tag) => <li>{tag}</li>)}
+        </ul>
+        <a class="button button-solid" href="https://linkedin.com/in/benwanicur">
+          Full history on LinkedIn
+        </a>
+      </article>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .founder-card {
+    padding: clamp(2rem, 4.5vw, 3.5rem);
+  }
+
+  .founder-card h1 {
+    font-size: clamp(2.25rem, 5vw, 3.25rem);
+    font-weight: 700;
+    margin-top: 0.5rem;
+  }
+
+  .founder-bio {
+    margin-top: 1.5rem;
+    font-size: 1.09375rem;
+    line-height: 1.75;
+  }
+
+  .founder-card .stack-tags {
+    margin-top: 2.5rem;
+    gap: 0.625rem;
+  }
+
+  .founder-card .button {
+    margin-top: 2.5rem;
+  }
+</style>

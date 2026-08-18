@@ -1,0 +1,327 @@
+/* ------------------------------------------------------------------
+   Middle Path Development — design tokens & base styles
+   Palette derived from the logo: pine + meadow hillsides, river path.
+   ------------------------------------------------------------------ */
+
+:root {
+  --pine: #1b4527;
+  --pine-deep: #12331c;
+  --meadow: #6fa84e;
+  --meadow-soft: #e3eeda;
+  --river: #1d4f7c;
+  --river-soft: #dfe9f2;
+  --fog: #f4f6f0;
+  --card: #ffffff;
+  --ink: #182720;
+  --muted: #52645a;
+  --hairline: #d9e0d3;
+
+  --font-display: "Zilla Slab", "Rockwell", serif;
+  --font-body: "Public Sans Variable", "Public Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --measure: 62ch;
+  --site-width: 68rem;
+  --radius: 10px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--fog);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--pine);
+  text-wrap: balance;
+}
+
+p {
+  max-width: var(--measure);
+}
+
+a {
+  color: var(--river);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--pine);
+}
+
+:focus-visible {
+  outline: 2px solid var(--river);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+::selection {
+  background: var(--meadow-soft);
+}
+
+/* ---- layout shells ---- */
+
+.wrap {
+  max-width: var(--site-width);
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.section {
+  padding-block: clamp(3rem, 7vw, 5.5rem);
+}
+
+/* ---- shared vocabulary ---- */
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--river);
+}
+
+.lede {
+  font-size: clamp(1.125rem, 1.6vw, 1.3125rem);
+  color: var(--muted);
+}
+
+.button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 2px solid var(--pine);
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.button-solid {
+  background: var(--pine);
+  color: var(--fog);
+}
+
+.button-solid:hover {
+  background: var(--pine-deep);
+  color: var(--fog);
+}
+
+.button-quiet {
+  color: var(--pine);
+  background: transparent;
+}
+
+.button-quiet:hover {
+  background: var(--meadow-soft);
+  color: var(--pine);
+}
+
+/* For use on the pine-colored CTA band. */
+.button-invert {
+  background: var(--fog);
+  color: var(--pine);
+  border-color: var(--fog);
+}
+
+.button-invert:hover {
+  background: var(--meadow-soft);
+  border-color: var(--meadow-soft);
+  color: var(--pine-deep);
+}
+
+/* Trail blaze: the painted marker that tells you which trail you're on. */
+.blaze {
+  display: inline-block;
+  width: 1.1rem;
+  height: 1.75rem;
+  border-radius: 3px;
+  border: 1.5px solid rgba(24, 39, 32, 0.18);
+}
+
+.blaze-river {
+  background: var(--river);
+}
+
+.blaze-meadow {
+  background: var(--meadow);
+}
+
+.blaze-pine {
+  background: var(--pine);
+}
+
+.stack-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.stack-tags li {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--muted);
+}
+
+/* ---- header ---- */
+
+.site-header {
+  border-bottom: 1px solid var(--hairline);
+  background: var(--fog);
+}
+
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding-block: 1rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-decoration: none;
+}
+
+.brand img {
+  width: 2.6rem;
+}
+
+.brand-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--pine);
+  line-height: 1.1;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2rem);
+}
+
+.site-nav a {
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  color: var(--ink);
+  padding-block: 0.25rem;
+  border-bottom: 2px solid transparent;
+}
+
+.site-nav a:hover {
+  color: var(--river);
+}
+
+.site-nav a[aria-current="page"] {
+  color: var(--pine);
+  border-bottom-color: var(--meadow);
+}
+
+/* ---- footer ---- */
+
+.site-footer {
+  background: var(--pine-deep);
+  color: var(--meadow-soft);
+  padding-block: 2.75rem;
+  margin-top: clamp(3rem, 7vw, 5rem);
+}
+
+.site-footer .wrap {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+  align-items: first baseline;
+}
+
+.site-footer a {
+  color: var(--fog);
+}
+
+.site-footer a:hover {
+  color: var(--meadow);
+}
+
+.footer-nav {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.footer-nav a {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.footer-meta {
+  font-size: 0.9rem;
+  color: #a9c4a0;
+}
+
+/* ---- path divider (signature motif) ---- */
+
+.path-divider {
+  display: block;
+  width: 100%;
+  height: 3.5rem;
+  color: var(--hairline);
+}
+
+/* ---- cards ---- */
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

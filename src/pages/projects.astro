@@ -1,0 +1,142 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PathDivider from '../components/PathDivider.astro';
+import ContactToggle from '../components/ContactToggle.astro';
+
+const projectTypes = [
+  {
+    blaze: 'blaze-river',
+    kicker: 'For applications that need help',
+    title: 'Project Rescue',
+    intro:
+      'The app is live, customers depend on it, and something has gone wrong.  Or maybe it just needs some love. We specialize in the unglamorous work of getting it healthy again.',
+    points: [
+      'Fixing difficult bugs and refactoring the code around them so they stay fixed',
+      'Untangling "vibe-coded" messes — AI-generated or otherwise — into software a team can maintain',
+      'Updating and securing outdated applications: framework upgrades, dependency audits, patched holes',
+    ],
+  },
+  {
+    blaze: 'blaze-meadow',
+    kicker: 'For new products',
+    title: 'Greenfield Projects',
+    intro:
+      'Starting fresh is a chance to get the foundations right. We build new products end to end and keep the work pointed at your business goals, not our favorite technology.',
+    points: [
+      'Guiding you through technical decisions in plain language, with honest trade-offs',
+      'Organizing development around project-based goals, so progress is visible and steady',
+      'Implementing those decisions ourselves — we write the code, not just the recommendations',
+    ],
+  },
+  {
+    blaze: 'blaze-pine',
+    kicker: 'For teams that want a second opinion',
+    title: 'Consultancy',
+    intro:
+      'Sometimes you do not need more hands — you need a candid outside voice before you commit. We offer feedback with no stake in the answer.',
+    points: [
+      'Second opinions on plans, estimates, and architecture before you invest in them',
+      'Code and design review with concrete, prioritized recommendations',
+      'Mentoring for in-house engineers and help evaluating technical hires',
+    ],
+  },
+];
+---
+
+<Layout
+  title="Projects — Middle Path Development"
+  description="The kinds of work we take on: rescuing troubled applications, building greenfield products end to end, and consulting for teams that want honest technical feedback."
+>
+  <section class="section page-intro">
+    <div class="wrap">
+      <p class="eyebrow">Projects</p>
+      <h1>The work we take on.</h1>
+      <p class="lede">
+        Each blaze marks a different trail; all of them follow the same steady approach.
+      </p>
+    </div>
+  </section>
+
+  <PathDivider />
+
+  <section class="section project-list">
+    <div class="wrap">
+      {
+        projectTypes.map((project) => (
+          <article class="card project-card">
+            <div class="project-marker">
+              <span class={`blaze ${project.blaze}`} aria-hidden="true" />
+              <p class="eyebrow">{project.kicker}</p>
+            </div>
+            <h2>{project.title}</h2>
+            <p class="project-intro">{project.intro}</p>
+            <ul>
+              {project.points.map((point) => (
+                <li>{point}</li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+      <p class="project-cta">
+        Not sure which trail your project is on? Write to us — <ContactToggle
+          label="show our email"
+        /> — and we will help you figure it out.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-intro {
+    padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .page-intro h1 {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    font-weight: 700;
+    margin-block: 0.75rem 1rem;
+  }
+
+  .project-list {
+    padding-top: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .project-card {
+    margin-bottom: 1.5rem;
+  }
+
+  .project-marker {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .project-card h2 {
+    font-size: clamp(1.625rem, 3vw, 2.125rem);
+    margin-bottom: 0.625rem;
+  }
+
+  .project-intro {
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .project-card ul {
+    padding-left: 1.25rem;
+    max-width: var(--measure);
+  }
+
+  .project-card li {
+    margin-bottom: 0.5rem;
+  }
+
+  .project-card li::marker {
+    color: var(--meadow);
+  }
+
+  .project-cta {
+    margin-top: 2.5rem;
+  }
+</style>

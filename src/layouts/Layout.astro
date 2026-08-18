@@ -1,0 +1,76 @@
+---
+import '@fontsource/zilla-slab/500.css';
+import '@fontsource/zilla-slab/600.css';
+import '@fontsource/zilla-slab/700.css';
+import '@fontsource-variable/public-sans';
+import '@fontsource/ibm-plex-mono/500.css';
+import '../styles/global.css';
+import { Image } from 'astro:assets';
+import ContactToggle from '../components/ContactToggle.astro';
+import logo from '../assets/middlepath-logo.png';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const path = Astro.url.pathname;
+
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/people', label: 'People' },
+];
+
+const isCurrent = (href: string) =>
+  href === '/' ? path === '/' : path.replace(/\/$/, '') === href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a href="/" class="brand">
+          <Image src={logo} alt="" width={96} densities={[1, 2]} />
+          <span class="brand-name">Middle Path<br />Development</span>
+        </a>
+        <nav class="site-nav" aria-label="Main">
+          {
+            navLinks.map((link) => (
+              <a href={link.href} aria-current={isCurrent(link.href) ? 'page' : undefined}>
+                {link.label}
+              </a>
+            ))
+          }
+          <ContactToggle label="Contact us" variant="nav" />
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <nav class="footer-nav" aria-label="Footer">
+          {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+        </nav>
+        <p class="footer-meta">Middle Path Development · San Diego, California</p>
+      </div>
+    </footer>
+  </body>
+</html>
