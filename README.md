@@ -9,7 +9,7 @@ components, no client-side router. Content lives in the pages themselves.
 | Route       | File                     | Purpose                                                                                 |
 | :---------- | :----------------------- | :-------------------------------------------------------------------------------------- |
 | `/`         | `src/pages/index.astro`  | Hero, the three offerings (Project Rescue, Greenfield Builds, Consultancy), how we work, CTA band |
-| `/projects` | `src/pages/projects.astro` | Longer description of each kind of engagement, with the specifics of what it includes   |
+| `/projects` | `src/pages/projects.astro` | Each kind of engagement, plus featured work we have built (My Gig Calendar)              |
 | `/people`   | `src/pages/people.astro` | Founder bio for Ben Wanicur and the working tech stack                                   |
 
 Page content is defined as plain arrays in each page's frontmatter (`offerings`, `principles`,

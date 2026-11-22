@@ -2,14 +2,24 @@
 import Layout from '../layouts/Layout.astro';
 import PathDivider from '../components/PathDivider.astro';
 import ContactToggle from '../components/ContactToggle.astro';
+import { Image } from 'astro:assets';
+import mgcScreenshot from '../assets/projects/my-gig-calendar.png';
+
+const mgcStack = [
+  { name: 'Ruby on Rails 8', role: 'The application, its data model, and its background jobs' },
+  { name: 'Hotwire (Turbo & Stimulus)', role: 'Quick, interactive pages without a separate JavaScript front end' },
+  { name: 'PostgreSQL', role: 'The database, which also runs the job queue, cache, and live updates through Rails’ Solid libraries' },
+  { name: 'Tailwind CSS', role: 'Styling, designed mobile-first for musicians answering from the green room' },
+  { name: 'Twilio', role: 'Text message invitations, and Yes or No replies sent straight back by text' },
+  { name: 'Resend', role: 'Invitation, verification, and password reset email' },
+  { name: 'Kamal & DigitalOcean', role: 'Docker-based deploys to a server we run ourselves' },
+  { name: 'RSpec, Capybara & Jest', role: 'Tests covering the Ruby code, full browser flows, and JavaScript' },
+];
 
 const projectTypes = [
   {
     blaze: 'blaze-river',
-    kicker: 'For applications that need help',
     title: 'Project Rescue',
-    intro:
-      'The app is live, customers depend on it, and something has gone wrong.  Or maybe it just needs some love. We specialize in the unglamorous work of getting it healthy again.',
     points: [
       'Fixing difficult bugs and refactoring the code around them so they stay fixed',
       'Untangling "vibe-coded" messes into software a team can maintain',
@@ -18,10 +28,7 @@ const projectTypes = [
   },
   {
     blaze: 'blaze-meadow',
-    kicker: 'For new products',
     title: 'Greenfield Projects',
-    intro:
-      'Starting fresh is a chance to get the foundations right. We build new products end to end and keep the work pointed at your business goals, not our favorite technology.',
     points: [
       'Guiding you through technical decisions in plain language, with honest trade-offs',
       'Organizing development around project-based goals, so progress is visible and steady',
@@ -30,10 +37,7 @@ const projectTypes = [
   },
   {
     blaze: 'blaze-pine',
-    kicker: 'For teams that want a second opinion',
     title: 'Consultancy',
-    intro:
-      'Sometimes you do not need more hands.  You need a candid outside voice before you commit. We offer feedback with no stake in the answer.',
     points: [
       'Second opinions on plans, estimates, and architecture before you invest in them',
       'Code and design review with concrete, prioritized recommendations',
@@ -45,7 +49,7 @@ const projectTypes = [
 
 <Layout
   title="Projects — Middle Path Development"
-  description="The kinds of work we take on: rescuing troubled applications, building greenfield products end to end, and consulting for teams that want honest technical feedback."
+  description="The kinds of work we take on (rescuing troubled applications, building greenfield products, and consulting) and software we have built, like My Gig Calendar."
 >
   <section class="section page-intro">
     <div class="wrap">
@@ -57,19 +61,15 @@ const projectTypes = [
     </div>
   </section>
 
-  <PathDivider />
-
   <section class="section project-list">
-    <div class="wrap">
+    <div class="wrap project-grid">
       {
         projectTypes.map((project) => (
           <article class="card project-card">
-            <div class="project-marker">
+            <h2 class="project-marker">
               <span class={`blaze ${project.blaze}`} aria-hidden="true" />
-              <p class="eyebrow">{project.kicker}</p>
-            </div>
-            <h2>{project.title}</h2>
-            <p class="project-intro">{project.intro}</p>
+              {project.title}
+            </h2>
             <ul>
               {project.points.map((point) => (
                 <li>{point}</li>
@@ -78,6 +78,66 @@ const projectTypes = [
           </article>
         ))
       }
+    </div>
+  </section>
+
+  <PathDivider />
+
+  <section class="section built" aria-labelledby="built-heading">
+    <div class="wrap">
+      <h2 id="built-heading" class="built-heading">What we have built</h2>
+      <p class="lede built-lede">Software of our own, designed, built, and run by us.</p>
+
+      <article class="feature">
+        <figure class="feature-shot">
+          <div class="feature-chrome" aria-hidden="true">
+            <span class="feature-dots"><i></i><i></i><i></i></span>
+            <span class="feature-url">mygigcalendar.app</span>
+          </div>
+          <Image
+            src={mgcScreenshot}
+            alt="The My Gig Calendar home page: the headline “Manage your gigs in one spot” beside an example jazz trio gig where two musicians have accepted at $275 each."
+            widths={[640, 960, 1280, 1920]}
+            sizes="(min-width: 68rem) 64rem, 100vw"
+          />
+        </figure>
+
+        <div class="feature-body">
+          <div class="feature-about">
+            <p class="feature-trail">
+              <span class="blaze blaze-meadow" aria-hidden="true"></span>
+              A greenfield project
+            </p>
+            <h3>My Gig Calendar</h3>
+            <p>
+              A scheduling app for working musicians. A band leader enters a gig once, invites
+              the band by text or email, and watches the answers come in on a single page.
+              Musicians reply Yes or No right from the text message.
+            </p>
+            <p>
+              Gigs land on everyone’s calendar in one click, and the leader marks each player paid.
+              At tax time, they download a spreadsheet of any musician’s gigs and pay. Every musician
+              also gets a public page of upcoming shows.
+            </p>
+            <a class="button button-solid" href="https://mygigcalendar.app/">Visit My Gig Calendar</a>
+          </div>
+
+          <div class="feature-stack">
+            <h4>Built with</h4>
+            <dl>
+              {
+                mgcStack.map((tech) => (
+                  <div>
+                    <dt>{tech.name}</dt>
+                    <dd>{tech.role}</dd>
+                  </div>
+                ))
+              }
+            </dl>
+          </div>
+        </div>
+      </article>
+
       <p class="project-cta">
         Not sure which trail your project is on? Write to us — <ContactToggle
           label="show email"
@@ -89,47 +149,62 @@ const projectTypes = [
 
 <style>
   .page-intro {
-    padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+    padding-block: clamp(1.75rem, 3.5vw, 2.5rem) 0;
   }
 
   .page-intro h1 {
-    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    font-size: clamp(2.25rem, 5vw, 3.25rem);
     font-weight: 700;
-    margin-block: 0.75rem 1rem;
+    margin-block: 0.5rem 0.625rem;
   }
 
   .project-list {
-    padding-top: clamp(1.5rem, 3vw, 2.5rem);
+    padding-block: clamp(1.5rem, 3vw, 2rem) clamp(0.75rem, 1.5vw, 1rem);
+  }
+
+  .project-grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 60rem) {
+    .project-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
   .project-card {
-    margin-bottom: 1.5rem;
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
   }
 
   .project-marker {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
+    gap: 0.625rem;
+    margin-bottom: 0.875rem;
   }
 
   .project-card h2 {
-    font-size: clamp(1.625rem, 3vw, 2.125rem);
-    margin-bottom: 0.625rem;
-  }
-
-  .project-intro {
-    color: var(--muted);
-    margin-bottom: 1rem;
+    font-size: clamp(1.5rem, 2.4vw, 1.75rem);
   }
 
   .project-card ul {
-    padding-left: 1.25rem;
+    padding-left: 1.125rem;
     max-width: var(--measure);
   }
 
   .project-card li {
-    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    line-height: 1.55;
+    margin-bottom: 0.375rem;
+  }
+
+  .project-card li:last-child {
+    margin-bottom: 0;
+  }
+
+  .built {
+    padding-top: clamp(1rem, 2vw, 1.5rem);
   }
 
   .project-card li::marker {
@@ -137,6 +212,131 @@ const projectTypes = [
   }
 
   .project-cta {
-    margin-top: 2.5rem;
+    margin-top: 3rem;
+  }
+
+  /* ---- What we have built ---- */
+
+  .built-heading {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 700;
+  }
+
+  .built-lede {
+    margin-top: 0.5rem;
+  }
+
+  .feature {
+    margin-top: clamp(2rem, 4vw, 3rem);
+  }
+
+  .feature-shot {
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--card);
+    box-shadow: 0 1.5rem 3rem -1.5rem rgba(18, 51, 28, 0.35);
+  }
+
+  .feature-chrome {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.625rem 1rem;
+    border-bottom: 1px solid var(--hairline);
+    background: var(--fog);
+  }
+
+  .feature-dots {
+    display: flex;
+    gap: 0.375rem;
+  }
+
+  .feature-dots i {
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    background: var(--hairline);
+  }
+
+  .feature-url {
+    flex: 1;
+    max-width: 22rem;
+    margin-inline: auto;
+    padding: 0.125rem 0.75rem;
+    border-radius: 999px;
+    background: var(--card);
+    border: 1px solid var(--hairline);
+    font-size: 0.8125rem;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  .feature-shot img {
+    width: 100%;
+  }
+
+  .feature-body {
+    display: grid;
+    gap: clamp(2rem, 5vw, 4rem);
+    margin-top: clamp(2rem, 4vw, 3rem);
+  }
+
+  @media (min-width: 52rem) {
+    .feature-body {
+      grid-template-columns: 1.1fr 1fr;
+    }
+  }
+
+  .feature-trail {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  .feature-trail .blaze {
+    width: 0.8rem;
+    height: 1.3rem;
+  }
+
+  .feature-about h3 {
+    font-size: clamp(1.75rem, 3.2vw, 2.25rem);
+    font-weight: 700;
+    margin-block: 0.5rem 1rem;
+  }
+
+  .feature-about p + p {
+    margin-top: 1rem;
+  }
+
+  .feature-about .button {
+    margin-top: 1.75rem;
+  }
+
+  .feature-stack h4 {
+    font-family: var(--font-display);
+    font-size: 1.375rem;
+    font-weight: 600;
+    color: var(--pine);
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--meadow);
+  }
+
+  .feature-stack dl > div {
+    padding-block: 0.75rem;
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .feature-stack dt {
+    font-weight: 600;
+  }
+
+  .feature-stack dd {
+    margin: 0.125rem 0 0;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--muted);
   }
 </style>
