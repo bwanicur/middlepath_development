@@ -4,6 +4,7 @@ import PathDivider from '../components/PathDivider.astro';
 import ContactToggle from '../components/ContactToggle.astro';
 import { Image } from 'astro:assets';
 import mgcScreenshot from '../assets/projects/my-gig-calendar.png';
+import rescueGroupsScreenshot from '../assets/projects/rescue-groups-v5.png';
 
 const mgcStack = [
   { name: 'Ruby on Rails 8', role: 'The application, its data model, and its background jobs' },
@@ -14,6 +15,12 @@ const mgcStack = [
   { name: 'Resend', role: 'Invitation, verification, and password reset email' },
   { name: 'Kamal & DigitalOcean', role: 'Docker-based deploys to a server we run ourselves' },
   { name: 'RSpec, Capybara & Jest', role: 'Tests covering the Ruby code, full browser flows, and JavaScript' },
+];
+
+const rescueGroupsStack = [
+  { name: 'Ruby', role: 'The gem itself, released under the MIT License' },
+  { name: 'Faraday', role: 'The HTTP requests to the RescueGroups.org API' },
+  { name: 'RSpec, VCR & WebMock', role: 'Tests run against recorded API responses' },
 ];
 
 const projectTypes = [
@@ -49,7 +56,7 @@ const projectTypes = [
 
 <Layout
   title="Projects — Middle Path Development"
-  description="The kinds of work we take on (rescuing troubled applications, building greenfield products, and consulting) and software we have built, like My Gig Calendar."
+  description="The kinds of work we take on (rescuing troubled applications, building greenfield products, and consulting) and software we have built, like My Gig Calendar and the Rescue Groups V5 Ruby gem."
 >
   <section class="section page-intro">
     <div class="wrap">
@@ -88,6 +95,14 @@ const projectTypes = [
       <h2 id="built-heading" class="built-heading">What we have built</h2>
 
       <article class="feature">
+        <header class="feature-head">
+          <h3>My Gig Calendar</h3>
+          <p class="feature-trail">
+            <span class="blaze blaze-meadow" aria-hidden="true"></span>
+            A greenfield project
+          </p>
+        </header>
+
         <figure class="feature-shot">
           <div class="feature-chrome" aria-hidden="true">
             <span class="feature-dots"><i></i><i></i><i></i></span>
@@ -103,11 +118,6 @@ const projectTypes = [
 
         <div class="feature-body">
           <div class="feature-about">
-            <p class="feature-trail">
-              <span class="blaze blaze-meadow" aria-hidden="true"></span>
-              A greenfield project
-            </p>
-            <h3>My Gig Calendar</h3>
             <p>
               A scheduling app for working musicians. A band leader enters a gig once, invites
               the band by text or email, and watches the answers come in on a single page.
@@ -136,7 +146,69 @@ const projectTypes = [
           </div>
         </div>
       </article>
+    </div>
 
+    <svg class="ridge" viewBox="0 0 1200 96" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,62 C170,14 330,10 520,48 C700,84 860,82 1010,44 C1090,24 1150,20 1200,26 V96 H0 Z"></path>
+    </svg>
+
+    <div class="feature-band">
+      <div class="wrap">
+        <article class="feature">
+          <header class="feature-head">
+            <h3>Rescue Groups V5 (ruby gem)</h3>
+            <p class="feature-trail">
+              <span class="blaze blaze-river" aria-hidden="true"></span>
+              An open source project
+            </p>
+          </header>
+
+          <figure class="feature-shot">
+            <div class="feature-chrome" aria-hidden="true">
+              <span class="feature-dots"><i></i><i></i><i></i></span>
+              <span class="feature-url">github.com/bwanicur/rescue_groups_v5</span>
+            </div>
+            <Image
+              src={rescueGroupsScreenshot}
+              alt="The Usage section of the Rescue Groups V5 README on GitHub: a Ruby example that searches for available dogs within 25 miles of a postal code."
+              widths={[640, 960, 1280, 1804]}
+              sizes="(min-width: 68rem) 64rem, 100vw"
+            />
+          </figure>
+
+          <div class="feature-body">
+            <div class="feature-about">
+              <p>
+                A Ruby gem for finding adoptable pets. It wraps the RescueGroups.org API, so a Ruby
+                application can search animals and the rescue organizations caring for them.
+              </p>
+              <p>
+                Developers can search by species, breed, size, or distance from a postal code, all in
+                plain Ruby. The gem builds the API requests and can attach related details, like an
+                animal’s rescue organization, directly to each result.
+              </p>
+              <a class="button button-solid" href="https://github.com/bwanicur/rescue_groups_v5">View on GitHub</a>
+            </div>
+
+            <div class="feature-stack">
+              <h4>Built with</h4>
+              <dl>
+                {
+                  rescueGroupsStack.map((tech) => (
+                    <div>
+                      <dt>{tech.name}</dt>
+                      <dd>{tech.role}</dd>
+                    </div>
+                  ))
+                }
+              </dl>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="wrap">
       <p class="project-cta">
         Not sure which trail your project is on? Write to us — <ContactToggle
           label="show email"
@@ -225,6 +297,29 @@ const projectTypes = [
     margin-top: clamp(2rem, 4vw, 3rem);
   }
 
+  /* The next project sits on its own hillside, after the hills in the logo. */
+  .ridge {
+    display: block;
+    width: 100%;
+    height: clamp(3rem, 7vw, 6rem);
+    margin-top: clamp(2rem, 5vw, 4rem);
+    /* Overlap the band so no seam shows at fractional heights. */
+    margin-bottom: -1px;
+    fill: var(--meadow-soft);
+  }
+
+  .feature-band {
+    --hairline: #c3d3b7;
+    /* Contain the article margin so the band meets the ridge. */
+    display: flow-root;
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+    background: var(--meadow-soft);
+  }
+
+  .feature-head {
+    margin-bottom: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+
   .feature-shot {
     border: 1px solid var(--hairline);
     border-radius: var(--radius);
@@ -236,7 +331,7 @@ const projectTypes = [
   .feature-chrome {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
     padding: 0.625rem 1rem;
     border-bottom: 1px solid var(--hairline);
     background: var(--fog);
@@ -256,6 +351,10 @@ const projectTypes = [
 
   .feature-url {
     flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     max-width: 22rem;
     margin-inline: auto;
     padding: 0.125rem 0.75rem;
@@ -296,10 +395,10 @@ const projectTypes = [
     height: 1.3rem;
   }
 
-  .feature-about h3 {
+  .feature-head h3 {
     font-size: clamp(1.75rem, 3.2vw, 2.25rem);
     font-weight: 700;
-    margin-block: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
   }
 
   .feature-about p + p {
